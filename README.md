@@ -2,9 +2,9 @@
 
 A simple Python utility that reconstructs a project from a JSON array of files and directories.
 
-This tool makes it quick and easy to pass context to and from LLMs.  It is designed for AI-assisted development workflows where an LLM generates an entire project as structured JSON. The utility reads the JSON from **stdin** and recreates the corresponding directory structure and files on disk.
+This tool makes it quick and easy to pass context to and from LLMs.  It is designed for AI-assisted development workflows where an LLM generates an entire project as structured JSON. The json-to-directory utility reads the JSON from **stdin** and recreates the corresponding directory structure and files on disk.  The directory-to-json reverses the process.  It creates a JSON file based on the contents of the starting directory and dives into the directory structure finding all files and stores them in a single JSON file.
 
-## Features
+## json-to-directory Features
 
 - Creates directories and files from a JSON document
 - Automatically creates parent directories as needed
@@ -14,6 +14,13 @@ This tool makes it quick and easy to pass context to and from LLMs.  It is desig
 - Lists all conflicting files before making any changes
 - Supports a `/f` option to force overwriting existing files
 - Simple, dependency-free implementation using the Python standard library
+
+## directory-to-json Features
+
+- Creates JSON file based on a directory structure
+- The JSON is a simple array of objects and is only a single level deep.  Directory structure and depth is implied by the path elements.
+- writes to JSON to STDOUT.  Redirect as needed
+
 
 ## JSON Format
 
