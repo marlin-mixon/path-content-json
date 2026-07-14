@@ -79,7 +79,7 @@ Run again with /f to overwrite these files.
 ### Basic JSON creation from a directory structure
 
 ```bash
-python directory-to-json.py < project.json
+python directory-to-json.py > project.json
 ```
 
 ## Why this exists
