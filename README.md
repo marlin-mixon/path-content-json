@@ -2,7 +2,7 @@
 
 A simple Python utility that reconstructs a project from a JSON array of files and directories.
 
-This tool makes it quick and easy to pass context to and from LLMs.  is designed for AI-assisted development workflows where an LLM generates an entire project as structured JSON. The utility reads the JSON from **stdin** and recreates the corresponding directory structure and files on disk.
+This tool makes it quick and easy to pass context to and from LLMs.  It is designed for AI-assisted development workflows where an LLM generates an entire project as structured JSON. The utility reads the JSON from **stdin** and recreates the corresponding directory structure and files on disk.
 
 ## Features
 
