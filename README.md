@@ -2,7 +2,7 @@
 
 A simple Python utility that reconstructs a project from a JSON array of files and directories.
 
-This tool is designed for AI-assisted development workflows where an LLM generates an entire project as structured JSON. The utility reads the JSON from **stdin** and recreates the corresponding directory structure and files on disk.
+This tool makes it quick and easy to pass context to and from LLMs.  is designed for AI-assisted development workflows where an LLM generates an entire project as structured JSON. The utility reads the JSON from **stdin** and recreates the corresponding directory structure and files on disk.
 
 ## Features
 
@@ -47,16 +47,16 @@ Directories are identified by a trailing `/`.
 
 ## Usage
 
-### Basic
+### Basic directory creation from a JSON file
 
 ```bash
-python unpack_project.py < project.json
+python json-to-directory.py < project.json
 ```
 
-### Force overwrite
+### As above but with force overwrite
 
 ```bash
-python unpack_project.py /f < project.json
+python json-to-directory.py /f < project.json
 ```
 
 If existing files are found, the utility will stop before writing anything and display a list of conflicts.
@@ -76,9 +76,15 @@ Nothing has been written.
 Run again with /f to overwrite these files.
 ```
 
+### Basic JSON creation from a directory structure
+
+```bash
+python directory-to-json.py < project.json
+```
+
 ## Why this exists
 
-Large Language Models frequently generate software projects as structured JSON because it is easier to validate and transport than archive formats. This utility provides a safe way to unpack those projects while protecting existing work from accidental overwrites.
+Large Language Models frequently generate software projects as structured JSON because it is easier to validate and transport than archive formats. This utility provides a safe way to unpack those projects while protecting existing work from accidental overwrites.  Additionally, you can ask an LLM to modify an existing set of files by creating and passing a JSON file containing all the code of your project.
 
 ## Requirements
 
