@@ -5,8 +5,11 @@ import base64
 
 
 def unpack_project():
+
+    force = any(arg.lower() in ("/f", "-f", "--force") for arg in sys.argv[1:])
+
     try:
-        # Load all JSON data from stdin
+
         input_data = sys.stdin.read()
 
         if not input_data.strip():
@@ -18,6 +21,12 @@ def unpack_project():
         if not isinstance(files_to_create, list):
             print("Error: Expected a JSON array at root.", file=sys.stderr)
             sys.exit(1)
+
+        #
+        # Pass 1 - validate entries and look for files that already exist
+        #
+
+        overwrite_list = []
 
         for file_info in files_to_create:
 
@@ -31,8 +40,57 @@ def unpack_project():
                 print("Warning: Skipping entry with no path.", file=sys.stderr)
                 continue
 
+            contents = file_info.get("content")
+
+            # Directories are fine
+            if contents is None:
+                continue
+
+            normalized = path.replace("\\", "/")
+
+            if os.path.exists(normalized):
+                overwrite_list.append(normalized)
+
+        if overwrite_list and not force:
+
+            print(
+                "The following files already exist and would be overwritten:\n",
+                file=sys.stderr
+            )
+
+            for filename in overwrite_list:
+                print(f"  {filename}", file=sys.stderr)
+
+            print(
+                f"\n{len(overwrite_list)} file(s) would be overwritten.",
+                file=sys.stderr
+            )
+
+            print(
+                "Run again with /f to overwrite existing files.",
+                file=sys.stderr
+            )
+
+            sys.exit(2)
+
+        #
+        # Pass 2 - write everything
+        #
+
+        for file_info in files_to_create:
+
+            if not isinstance(file_info, dict):
+                continue
+
+            path = file_info.get("path")
+
+            if not path:
+                continue
+
             content = file_info.get("content")
-            encoding = (encoding or "text").strip().lower()
+            encoding = (
+                file_info.get("encoding") or "text"
+            ).strip().lower()
 
             write_entry(path, content, encoding)
 
@@ -47,13 +105,15 @@ def unpack_project():
         sys.exit(1)
 
 
-def write_entry(relative_path, contents, encoding=None):
+def write_entry(relative_path, contents, encoding="text"):
 
-    # Normalize path separators
     normalized_path = relative_path.replace("\\", "/")
 
-    # Directory entry
+    #
+    # Directory
+    #
     if contents is None:
+
         os.makedirs(normalized_path.rstrip("/"), exist_ok=True)
         print(f"Created directory: {normalized_path}")
         return
@@ -63,8 +123,7 @@ def write_entry(relative_path, contents, encoding=None):
     if directory:
         os.makedirs(directory, exist_ok=True)
 
-    # Default to text if encoding omitted
-    if encoding is None or encoding.lower() == "text":
+    if encoding == "text":
 
         with open(
             normalized_path,
@@ -74,10 +133,11 @@ def write_entry(relative_path, contents, encoding=None):
         ) as f:
             f.write(contents)
 
-    elif encoding.lower() == "base64":
+    elif encoding == "base64":
 
         try:
             binary = base64.b64decode(contents)
+
         except Exception as ex:
             raise ValueError(
                 f"Invalid base64 content for '{normalized_path}': {ex}"
