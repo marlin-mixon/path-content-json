@@ -2,9 +2,10 @@ import os
 import json
 import sys
 import base64
+import argparse
 
 
-def scan_directory(target_dir, base_dir=None):
+def scan_directory(target_dir, base_dir=None, minimize=False):
     result = []
 
     ignored_dirs = {
@@ -31,10 +32,13 @@ def scan_directory(target_dir, base_dir=None):
                 + "/"
             )
 
-            result.append({
-                "path": dir_path,
-                "content": None
-            })
+            if minimize:
+                result.append([dir_path])
+            else:
+                result.append({
+                    "path": dir_path,
+                    "content": None
+                })
 
         # Record files
         for file in files:
@@ -63,16 +67,24 @@ def scan_directory(target_dir, base_dir=None):
                         is_binary = True
 
                 if is_binary:
-                    result.append({
-                        "path": path,
-                        "encoding": "base64",
-                        "content": base64.b64encode(data).decode("ascii")
-                    })
+                    encoded = base64.b64encode(data).decode("ascii")
+
+                    if minimize:
+                        result.append([path, "b", encoded])
+                    else:
+                        result.append({
+                            "path": path,
+                            "encoding": "base64",
+                            "content": encoded
+                        })
                 else:
-                    result.append({
-                        "path": path,
-                        "content": text
-                    })
+                    if minimize:
+                        result.append([path, text])
+                    else:
+                        result.append({
+                            "path": path,
+                            "content": text
+                        })
 
             except PermissionError:
                 print(
@@ -89,10 +101,28 @@ def scan_directory(target_dir, base_dir=None):
     return result
 
 
-if __name__ == "__main__":
+def main():
+    parser = argparse.ArgumentParser(
+        description="Recursively convert a directory into JSON."
+    )
 
-    # Use current directory if no path is passed
-    project_dir = sys.argv[1] if len(sys.argv) > 1 else "."
+    parser.add_argument(
+        "directory",
+        nargs="?",
+        default=".",
+        help="Directory to scan (default: current directory)"
+    )
+
+    parser.add_argument(
+        "-m",
+        "--minimize",
+        action="store_true",
+        help="Minimize JSON for LLM consumption."
+    )
+
+    args = parser.parse_args()
+
+    project_dir = args.directory
 
     if not os.path.exists(project_dir):
         print(
@@ -101,6 +131,17 @@ if __name__ == "__main__":
         )
         sys.exit(1)
 
-    file_data = scan_directory(project_dir, os.getcwd())
+    file_data = scan_directory(
+        project_dir,
+        os.getcwd(),
+        minimize=args.minimize
+    )
 
-    print(json.dumps(file_data, indent=2))
+    if args.minimize:
+        print(json.dumps(file_data, separators=(",", ":")))
+    else:
+        print(json.dumps(file_data, indent=2))
+
+
+if __name__ == "__main__":
+    main()
