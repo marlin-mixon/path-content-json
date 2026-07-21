@@ -119,6 +119,7 @@ def main():
 
     parser.add_argument(
         "-m",
+        "/m",
         "--minimize",
         action="store_true",
         help="Minimize JSON for LLM consumption."
