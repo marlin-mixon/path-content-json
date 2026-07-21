@@ -4,6 +4,45 @@ import json
 import base64
 
 
+def parse_entry(entry):
+    """
+    Returns (path, content, encoding)
+
+    Supports both formats:
+
+    Object format:
+        {
+            "path": "...",
+            "content": "...",
+            "encoding": "base64"
+        }
+
+    Minimized format:
+        ["path", "content"]
+
+        ["path", "base64", "..."]
+
+        ["directory/", None]
+    """
+
+    if isinstance(entry, dict):
+        return (
+            entry.get("path"),
+            entry.get("content"),
+            (entry.get("encoding") or "text").strip().lower()
+        )
+
+    if isinstance(entry, list):
+
+        if len(entry) == 2:
+            return entry[0], entry[1], "text"
+
+        if len(entry) == 3:
+            return entry[0], entry[2], entry[1].strip().lower()
+
+    return None, None, None
+
+
 def unpack_project():
 
     force = any(arg.lower() in ("/f", "-f", "--force") for arg in sys.argv[1:])
@@ -30,19 +69,13 @@ def unpack_project():
 
         for file_info in files_to_create:
 
-            if not isinstance(file_info, dict):
-                print("Warning: Skipping non-object entry.", file=sys.stderr)
-                continue
-
-            path = file_info.get("path")
+            path, contents, encoding = parse_entry(file_info)
 
             if not path:
-                print("Warning: Skipping entry with no path.", file=sys.stderr)
+                print("Warning: Invalid entry. Skipping.", file=sys.stderr)
                 continue
 
-            contents = file_info.get("content")
-
-            # Directories are fine
+            # Directories don't overwrite files
             if contents is None:
                 continue
 
@@ -79,22 +112,14 @@ def unpack_project():
 
         for file_info in files_to_create:
 
-            if not isinstance(file_info, dict):
-                continue
-
-            path = file_info.get("path")
+            path, content, encoding = parse_entry(file_info)
 
             if not path:
                 continue
 
-            content = file_info.get("content")
-            encoding = (
-                file_info.get("encoding") or "text"
-            ).strip().lower()
-
             write_entry(path, content, encoding)
 
-        print("\nSuccessfully unpacked all project files!")
+        print("\nSuccessfully unpacked all project files.")
 
     except json.JSONDecodeError as je:
         print(f"JSON Parsing Error: {je}", file=sys.stderr)
