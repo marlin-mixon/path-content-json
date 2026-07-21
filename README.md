@@ -67,7 +67,7 @@ Example of minimized JSON array-only format:
 ```
 Directories are identified by a trailing `/`.  Note that defining directories in this way is optional and only required for creating empty directories.
 
-Provide this guidance for the LLM:
+Use this to preface the minimized JSON array format to provide guidance for the LLM:
 ```
 Project format:
 ["path","text"] = UTF-8 file
@@ -75,8 +75,6 @@ Project format:
 ["dir/",null] = directory
 Root is an array of entries.
 ```
-
-
 
 ## Usage
 
