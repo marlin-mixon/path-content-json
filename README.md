@@ -100,6 +100,12 @@ python json-to-directory.py /f < project.json
 python directory-to-json.py > project.json
 ```
 
+### Minimally-sized JSON format creation from a directory structure
+
+```bash
+python directory-to-json.py /m > MinProject.json
+```
+
 ## Why this exists
 
 Large Language Models frequently generate software projects as structured JSON because it is easier to validate and transport than archive formats. This utility provides a safe way to unpack those projects while protecting existing work from accidental overwrites.  Additionally, you can ask an LLM to modify an existing set of files by creating and passing a JSON file containing all the code of your project.
