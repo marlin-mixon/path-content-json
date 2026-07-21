@@ -66,6 +66,15 @@ Example of minimized JSON array-only format:
 ]
 ```
 
+Provide this guidance for the LLM:
+```
+Project format:
+["path","text"] = UTF-8 file
+["path","base64","data"] = binary file
+["dir/",null] = directory
+Root is an array of entries.
+```
+
 Directories are identified by a trailing `/`.  Note that defining directories in this way is optional and only required for creating empty directories.
 
 ## Usage
