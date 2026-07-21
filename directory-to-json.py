@@ -62,6 +62,10 @@ def scan_directory(target_dir, base_dir=None, minimize=False):
                 else:
                     try:
                         text = data.decode("utf-8")
+
+                        # Normalize all line endings to Unix format.
+                        text = text.replace("\r\n", "\n").replace("\r", "\n")
+
                         is_binary = False
                     except UnicodeDecodeError:
                         is_binary = True
