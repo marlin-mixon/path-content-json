@@ -26,14 +26,12 @@ This tool makes it quick and easy to pass context to and from LLMs.  It is desig
 
 ## JSON Format
 
-The input must be a JSON array.
+Example of JSON object format -- an array of JSON objects:
 
 Each element contains:
 
 - `path` – Relative path to a file or directory
 - `content` – File contents (omitted or `null` for directories)
-
-Example of JSON object format:
 
 ```json
 [
