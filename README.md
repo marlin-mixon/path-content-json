@@ -61,7 +61,7 @@ Example of minimized JSON array-only format:
 [
 ["README.md","# My Project\n"],
 ["src/",null],
-["src/main.py","print('Hello, world!')\n"]
+["src/main.py","print('Hello, world!')\n"],
 ["assets/image.png", "base64", "iVBORw0KGgoAAAANSUhEUgAA..."]
 ]
 ```
