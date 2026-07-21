@@ -65,6 +65,7 @@ Example of minimized JSON array-only format:
 ["assets/image.png", "base64", "iVBORw0KGgoAAAANSUhEUgAA..."]
 ]
 ```
+Directories are identified by a trailing `/`.  Note that defining directories in this way is optional and only required for creating empty directories.
 
 Provide this guidance for the LLM:
 ```
@@ -75,7 +76,7 @@ Project format:
 Root is an array of entries.
 ```
 
-Directories are identified by a trailing `/`.  Note that defining directories in this way is optional and only required for creating empty directories.
+
 
 ## Usage
 
