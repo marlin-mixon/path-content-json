@@ -92,6 +92,8 @@ Run again with /f to overwrite these files.
 
 ```bash
 python json-to-directory.py /f < project.json
+
+(use switches /f, -f, --force as desired)
 ```
 
 ### Basic JSON creation from a directory structure
