@@ -17,8 +17,10 @@ This tool makes it quick and easy to pass context to and from LLMs.  It is desig
 
 ## directory-to-json Features
 
-- Creates JSON file based on a directory structure
-- The JSON is a simple array of objects and is only a single level deep.  Directory structure and depth is implied by the path elements.
+- Creates two types of JSON files based on a directory structure.
+- Default format type 1 is JSON array of objects.  This is easiest for humans to read and easily handled by LLMs
+- Option format type 2 is JSON array only.  This is still easy for LLMs to read but a bit harder for people.  Its advantage is it is minimal and conserves tokens.
+- Both of these JSON formats are simple arrays and are only a single level deep.  Directory structure and depth is implied by the path elements.
 - writes to JSON to STDOUT.  Redirect as needed
 
 
@@ -31,7 +33,7 @@ Each element contains:
 - `path` – Relative path to a file or directory
 - `content` – File contents (omitted or `null` for directories)
 
-Example:
+Example of JSON object format:
 
 ```json
 [
@@ -50,20 +52,24 @@ Example:
 ]
 ```
 
+Example of minimized JSON array-only format:
+
+```json
+[
+["README.md","# My Project\n"],
+["src/",null],
+["src/main.py","print('Hello, world!')\n"]
+]
+```
+
 Directories are identified by a trailing `/`.
 
 ## Usage
 
-### Basic directory creation from a JSON file
+### Basic directory creation from a JSON using either JSON array of object format or JSON mimimzed array format
 
 ```bash
 python json-to-directory.py < project.json
-```
-
-### As above but with force overwrite
-
-```bash
-python json-to-directory.py /f < project.json
 ```
 
 If existing files are found, the utility will stop before writing anything and display a list of conflicts.
@@ -81,6 +87,11 @@ ERROR: 4 existing files would be overwritten:
 Nothing has been written.
 
 Run again with /f to overwrite these files.
+```
+### As above but with force overwrite
+
+```bash
+python json-to-directory.py /f < project.json
 ```
 
 ### Basic JSON creation from a directory structure
