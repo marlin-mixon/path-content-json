@@ -104,6 +104,8 @@ python directory-to-json.py > project.json
 
 ```bash
 python directory-to-json.py /m > MinProject.json
+
+(use switches /m, -m, --minimize as desired)
 ```
 
 ## Why this exists
