@@ -32,6 +32,7 @@ Each element contains:
 
 - `path` – Relative path to a file or directory
 - `content` – File contents (omitted or `null` for directories)
+- `encoding` - Optional for identifying binary files.  Only valid entry is case-inensitive "base64".
 
 ```json
 [
@@ -46,7 +47,11 @@ Each element contains:
   {
     "path": "src/main.py",
     "content": "print('Hello, world!')\n"
-  }
+  }.
+  {
+    "path": "assets/image.png",
+    "encoding": "base64",
+    "content": "iVBORw0KGgoAAAANSUhEUgAA..."
 ]
 ```
 
@@ -57,6 +62,7 @@ Example of minimized JSON array-only format:
 ["README.md","# My Project\n"],
 ["src/",null],
 ["src/main.py","print('Hello, world!')\n"]
+["assets/image.png", "base64", "iVBORw0KGgoAAAANSUhEUgAA..."]
 ]
 ```
 
