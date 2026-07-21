@@ -66,7 +66,7 @@ Example of minimized JSON array-only format:
 ]
 ```
 
-Directories are identified by a trailing `/`.  Note that defining directories is optional.
+Directories are identified by a trailing `/`.  Note that defining directories in this way is optional and only required for creating empty directories.
 
 ## Usage
 
