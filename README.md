@@ -125,7 +125,7 @@ python directory-to-json.py /m > MinProject.json
 
 ## Why this exists
 
-Large Language Models frequently generate software projects as structured JSON because it is easier to validate and transport than archive formats. This utility provides a safe way to unpack those projects while protecting existing work from accidental overwrites.  Additionally, you can ask an LLM to modify an existing set of files by creating and passing a JSON file containing all the code of your project.
+Large Language Models often require full directory context in order to assist you in updating existing projects.  However, it can be a pain to hunt down, cut and paste the several files needed for context. The directory-to-json.py helps you do that in one command.  Conversely, when creating new projects like web sites or docker-compose projects, Large Language Models will typically generate several documents that are also a pain to copy and paste each of the generated files into the appropriate directory structure without making a mistake. By first requesting the LLM to put the generated files into JSON and then using the json-to-directory.py you can solve this problem with a single command. These utilities provides a safe and simple way to pack and unpack your projects with adequete protections that protect existing work from accidental overwrites. 
 
 ## Requirements
 
