@@ -12,7 +12,7 @@ This tool makes it quick and easy to pass context to and from LLMs.  It is desig
 - Writes files with Unix (LF) line endings
 - Refuses to overwrite existing files by default
 - Lists all conflicting files before making any changes
-- Supports a `/f` option to force overwriting existing files
+- Supports a `/f`, `-f`, or `--force` option to force overwriting existing files
 - Simple, dependency-free implementation using the Python standard library
 
 ## directory-to-json Features
@@ -21,6 +21,7 @@ This tool makes it quick and easy to pass context to and from LLMs.  It is desig
 - Default format type 1 is JSON array of objects.  This is easiest for humans to read and easily handled by LLMs
 - Option format type 2 is JSON array only.  This is still easy for LLMs to read but a bit harder for people.  Its advantage is it is minimal and conserves tokens.
 - Both of these JSON formats are simple arrays and are only a single level deep.  Directory structure and depth is implied by the path elements.
+- Supports a `/m`, `-m`, or `--minimize` option to create file that is minimally sized for best LLM token usage.
 - writes to JSON to STDOUT.  Redirect as needed
 
 
