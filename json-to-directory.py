@@ -45,7 +45,7 @@ def parse_entry(entry):
 
 def unpack_project():
 
-    force = any(arg.lower() in ("/f", "-f", "--force") for arg in sys.argv[1:])
+    force = any(arg.lower() in ("-f", "--force") for arg in sys.argv[1:])
 
     try:
 
