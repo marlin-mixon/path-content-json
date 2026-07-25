@@ -100,7 +100,7 @@ def unpack_project():
             )
 
             print(
-                "Run again with /f to force overwriting existing files.",
+                "Run again with -f to force overwriting existing files.",
                 file=sys.stderr
             )
 
