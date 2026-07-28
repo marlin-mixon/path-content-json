@@ -11,5 +11,5 @@ requires-python = ">=3.6"
 dependencies = []
 
 [project.scripts]
-cmd1 = "directory-to-json:main"
-cmd2 = "json-to-directory:main"
+directory-to-json = "directory_to_json:main"
+json-to-directory = "json_to_directory:main"
