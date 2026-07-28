@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "path-content-json"
+version = "0.1.0"
+description = "A simple pair of Python utilities that 1. Encodes a project directory into a single JSON document. 2. Constructs or Reconstructs a project based on the JSON array describing the files and directories."
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = []
+
+[project.scripts]
+cmd1 = "directory-to-json:main"
+cmd2 = "json-to-directory:main"
