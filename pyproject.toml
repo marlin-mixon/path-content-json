@@ -7,9 +7,9 @@ name = "path-content-json"
 version = "0.1.0"
 description = "A simple pair of Python utilities that 1. Encodes a project directory into a single JSON document. 2. Constructs or Reconstructs a project based on the JSON array describing the files and directories."
 readme = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 dependencies = []
 
 [project.scripts]
-directory-to-json = "directory_to_json:main"
-json-to-directory = "json_to_directory:main"
+directory_to_json = "directory_to_json:main"
+json_to_irectory = "json_to_directory:main"
