@@ -2,9 +2,9 @@
 
 A simple pair of Python utilities that 1. Encodes a project directory into a single JSON document.  2. Constructs or Reconstructs a project based on the JSON array describing the files and directories.
 
-This tool makes it quick and easy to pass context to and from LLMs.  It is designed for AI-assisted development workflows where an LLM generates an entire project as structured JSON. The json-to-directory utility reads the JSON from **stdin** and recreates the corresponding directory structure and files on disk.  The directory-to-json reverses the process.  It creates a JSON file based on the contents of the starting directory and dives into the directory structure finding all files and stores them in a single JSON file.
+This tool makes it quick and easy to pass context to and from LLMs.  It is designed for AI-assisted development workflows where an LLM generates an entire project as structured JSON. The json_to_directory utility reads the JSON from **stdin** and recreates the corresponding directory structure and files on disk.  The directory_to_json reverses the process.  It creates a JSON file based on the contents of the starting directory and dives into the directory structure finding all files and stores them in a single JSON file.
 
-## json-to-directory Features
+## json_to_directory Features
 
 - Creates directories and files from a JSON document
 - Automatically creates parent directories as needed
@@ -15,7 +15,7 @@ This tool makes it quick and easy to pass context to and from LLMs.  It is desig
 - Supports `-f`, or `--force` options to force overwriting existing files
 - Simple, dependency-free implementation using the Python standard library
 
-## directory-to-json Features
+## directory_to_json Features
 
 - Creates two types of JSON files based on a directory structure.
 - Default format type 1 is JSON array of objects.  This is easiest for humans to read and easily handled by LLMs
@@ -82,7 +82,7 @@ Root is an array of entries.
 ### Basic directory creation from a JSON using either JSON array of object format or JSON mimimzed array format
 
 ```bash
-python json-to-directory.py < project.json
+python json_to_directory.py < project.json
 ```
 
 If existing files are found, the utility will stop before writing anything and display a list of conflicts.
@@ -104,7 +104,7 @@ Run again with /f to overwrite these files.
 ### As above but with force overwrite
 
 ```bash
-python json-to-directory.py /f < project.json
+python json_to_directory.py /f < project.json
 
 (use switches /f, -f, --force as desired)
 ```
@@ -112,20 +112,20 @@ python json-to-directory.py /f < project.json
 ### Basic JSON creation from a directory structure
 
 ```bash
-python directory-to-json.py > project.json
+python directory_to_json.py > project.json
 ```
 
 ### Minimally-sized JSON format creation from a directory structure
 
 ```bash
-python directory-to-json.py /m > MinProject.json
+python directory_to_json.py /m > MinProject.json
 
 (use switches /m, -m, --minimize as desired)
 ```
 
 ## Why this exists
 
-Large Language Models often require full directory context in order to assist you in updating existing projects.  However, it can be a pain to hunt down, cut and paste the several files needed for context. The directory-to-json.py helps you do that in one command.  Conversely, when creating new projects like web sites or docker-compose projects, Large Language Models will typically generate a lot of documents that are a pain to copy and paste each into the appropriate directory structure without taking time plus you risk making mistakes. By first requesting the LLM to put the generated files into JSON and then using the json-to-directory.py you can solve this problem with a single command. These utilities provides a safe and simple way to pack and unpack your projects with adequete protections that protect existing work from accidental overwrites. 
+Large Language Models often require full directory context in order to assist you in updating existing projects.  However, it can be a pain to hunt down, cut and paste the several files needed for context. The directory_to_json.py helps you do that in one command.  Conversely, when creating new projects like web sites or docker-compose projects, Large Language Models will typically generate a lot of documents that are a pain to copy and paste each into the appropriate directory structure without taking time plus you risk making mistakes. By first requesting the LLM to put the generated files into JSON and then using the json_t_directory.py you can solve this problem with a single command. These utilities provides a safe and simple way to pack and unpack your projects with adequate protections that protect existing work from accidental overwrites. 
 
 ## Requirements
 
