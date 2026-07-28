@@ -9,6 +9,7 @@ description = "A simple pair of Python utilities that 1. Encodes a project direc
 readme = "README.md"
 requires-python = ">=3.7"
 dependencies = []
+py_modules = ["directory_to_json", "json_to_directory"]
 
 [project.scripts]
 directory_to_json = "directory_to_json:main"
