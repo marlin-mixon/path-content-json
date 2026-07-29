@@ -15,4 +15,4 @@ py-modules = ["directory_to_json", "json_to_directory"]
 
 [project.scripts]
 directory_to_json = "directory_to_json:main"
-json_to_directory = "json_to_directory:main"
+json_to_directory = "json_to_directory:unpack_project"
