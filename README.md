@@ -132,6 +132,10 @@ Large Language Models often require full directory context in order to assist yo
 - Python 3.7 or later
 - No third-party dependencies
 
+## Installation
+
+pip install git+https://github.com/marlin-mixon/path-content-json.git
+
 ## License
 
 MIT License
