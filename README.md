@@ -99,14 +99,14 @@ ERROR: 4 existing files would be overwritten:
 
 Nothing has been written.
 
-Run again with /f to overwrite these files.
+Run again with -f to overwrite these files.
 ```
 ### As above but with force overwrite
 
 ```bash
-python json_to_directory.py /f < project.json
+python json_to_directory.py -f < project.json
 
-(use switches /f, -f, --force as desired)
+(use switches -f, --force as desired)
 ```
 
 ### Basic JSON creation from a directory structure
@@ -118,9 +118,9 @@ python directory_to_json.py > project.json
 ### Minimally-sized JSON format creation from a directory structure
 
 ```bash
-python directory_to_json.py /m > MinProject.json
+python directory_to_json.py -m > MinProject.json
 
-(use switches /m, -m, --minimize as desired)
+(use switches -m, --minimize as desired)
 ```
 
 ## Why this exists
