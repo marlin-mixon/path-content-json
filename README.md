@@ -134,7 +134,9 @@ Large Language Models often require full directory context in order to assist yo
 
 ## Installation
 
-pip install git+https://github.com/marlin-mixon/path-content-json.git
+```bash
+pip install git+[https://github.com/marlin-mixon/path-content-json.git](https://github.com/marlin-mixon/path-content-json.git)
+```
 
 ## License
 
